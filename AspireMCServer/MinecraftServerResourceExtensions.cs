@@ -4,11 +4,11 @@ using AspireMCServer.Configuration;
 
 namespace AspireMCServer;
 
-public static class McServerResourceExtensions
+public static class MinecraftServerResourceExtensions
 {
-    public static IResourceBuilder<McServerResource> AddMinecraftServer(this IDistributedApplicationBuilder builder, string name)
+    public static IResourceBuilder<MinecraftServerResource> AddMinecraftServer(this IDistributedApplicationBuilder builder, string name)
     {
-        var containerBuilder = builder.AddResource(new McServerResource(name))
+        var containerBuilder = builder.AddResource(new MinecraftServerResource(name))
             .WithImage(MinecraftContainerConfiguration.Image)
             .WithImageRegistry(MinecraftContainerConfiguration.Registry)
             .WithEndpoint(25565, 25565, name: "http")
@@ -20,42 +20,42 @@ public static class McServerResourceExtensions
         return containerBuilder;
     }
 
-    public static IResourceBuilder<McServerResource> AcceptEula(this IResourceBuilder<McServerResource> builder)
+    public static IResourceBuilder<MinecraftServerResource> AcceptEula(this IResourceBuilder<MinecraftServerResource> builder)
     {
         builder.WithEnvironment("EULA", "TRUE");
 
         return builder;
     }
 
-    public static IResourceBuilder<McServerResource> WithPort(this IResourceBuilder<McServerResource> builder, ushort port)
+    public static IResourceBuilder<MinecraftServerResource> WithPort(this IResourceBuilder<MinecraftServerResource> builder, ushort port)
     {
         builder.WithEndpoint("http", x => x.Port = port);
 
         return builder;
     }
 
-    public static IResourceBuilder<McServerResource> WithJavaVersion(this IResourceBuilder<McServerResource> builder, string version)
+    public static IResourceBuilder<MinecraftServerResource> WithJavaVersion(this IResourceBuilder<MinecraftServerResource> builder, string version)
     {
         builder.WithImageTag(version);
 
         return builder;
     }
 
-    public static IResourceBuilder<McServerResource> WithMcVersion(this IResourceBuilder<McServerResource> builder, string version)
+    public static IResourceBuilder<MinecraftServerResource> WithMcVersion(this IResourceBuilder<MinecraftServerResource> builder, string version)
     {
         builder.WithEnvironment("VERSION", version);
 
         return builder;
     }
 
-    public static IResourceBuilder<McServerResource> WithDifficulty(this IResourceBuilder<McServerResource> builder, Difficulty difficulty)
+    public static IResourceBuilder<MinecraftServerResource> WithDifficulty(this IResourceBuilder<MinecraftServerResource> builder, Difficulty difficulty)
     {
         builder.WithEnvironment("DIFFICULTY", DifficultyName(difficulty));
 
         return builder;
     }
 
-    public static IResourceBuilder<McServerResource> WithMotd(this IResourceBuilder<McServerResource> builder, string motd)
+    public static IResourceBuilder<MinecraftServerResource> WithMotd(this IResourceBuilder<MinecraftServerResource> builder, string motd)
     {
         builder.WithEnvironment("MOTD", motd);
         return builder;

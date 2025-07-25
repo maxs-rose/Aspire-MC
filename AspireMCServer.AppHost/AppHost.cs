@@ -2,7 +2,7 @@ using AspireMCServer;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-builder.AddMcServer("the-craft")
+builder.AddMinecraftServer("the-craft")
     .WithPort(23455)
     .AcceptEula();
 

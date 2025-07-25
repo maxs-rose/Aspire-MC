@@ -6,16 +6,16 @@ namespace AspireMCServer;
 
 public static class McServerResourceExtensions
 {
-    public static IResourceBuilder<McServerResource> AddMcServer(this IDistributedApplicationBuilder builder, string name)
+    public static IResourceBuilder<McServerResource> AddMinecraftServer(this IDistributedApplicationBuilder builder, string name)
     {
         var containerBuilder = builder.AddResource(new McServerResource(name))
-            .WithImage("itzg/minecraft-server")
-            .WithImageRegistry("docker.io")
+            .WithImage(MinecraftContainerConfiguration.Image)
+            .WithImageRegistry(MinecraftContainerConfiguration.Registry)
             .WithEndpoint(25565, 25565, name: "http")
-            .WithImageVersion("latest")
-            .WithMcVersion("latest")
-            .WithDifficulty(Difficulty.Normal)
-            .WithMotd("MC Server running with Aspire!!");
+            .WithJavaVersion(MinecraftContainerConfiguration.JavaVersion)
+            .WithMcVersion(MinecraftContainerConfiguration.McVersion)
+            .WithDifficulty(MinecraftContainerConfiguration.DefaultDifficulty)
+            .WithMotd(MinecraftContainerConfiguration.DefaultMotd);
 
         return containerBuilder;
     }
@@ -34,7 +34,7 @@ public static class McServerResourceExtensions
         return builder;
     }
 
-    public static IResourceBuilder<McServerResource> WithImageVersion(this IResourceBuilder<McServerResource> builder, string version)
+    public static IResourceBuilder<McServerResource> WithJavaVersion(this IResourceBuilder<McServerResource> builder, string version)
     {
         builder.WithImageTag(version);
 

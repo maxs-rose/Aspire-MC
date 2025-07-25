@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireMCServer.AppHost", "AspireMCServer.AppHost\AspireMCServer.AppHost.csproj", "{78FEC947-287C-4129-BC28-B68452E6AC12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireMCServer", "AspireMCServer\AspireMCServer.csproj", "{35760750-46F5-4159-AE2C-473CA3F82540}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{78FEC947-287C-4129-BC28-B68452E6AC12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78FEC947-287C-4129-BC28-B68452E6AC12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78FEC947-287C-4129-BC28-B68452E6AC12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78FEC947-287C-4129-BC28-B68452E6AC12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35760750-46F5-4159-AE2C-473CA3F82540}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35760750-46F5-4159-AE2C-473CA3F82540}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35760750-46F5-4159-AE2C-473CA3F82540}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35760750-46F5-4159-AE2C-473CA3F82540}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

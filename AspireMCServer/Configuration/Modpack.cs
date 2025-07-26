@@ -1,6 +1,6 @@
 namespace AspireMCServer.Configuration;
 
-internal enum Modpack
+public enum Modpack
 {
     Curseforge,
     Ftb,

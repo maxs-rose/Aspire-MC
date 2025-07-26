@@ -1,4 +1,4 @@
-namespace AspireMCServer;
+namespace AspireMCServer.Configuration;
 
 public enum ModrinthVersionTypes
 {

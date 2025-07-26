@@ -1,6 +1,4 @@
-using AspireMCServer.Configuration;
-
-namespace AspireMCServer;
+namespace AspireMCServer.Configuration;
 
 internal static class MinecraftContainerConfiguration
 {

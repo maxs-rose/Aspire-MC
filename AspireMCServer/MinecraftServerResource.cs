@@ -1,4 +1,5 @@
 using Aspire.Hosting.ApplicationModel;
+using AspireMCServer.Configuration;
 
 namespace AspireMCServer;
 

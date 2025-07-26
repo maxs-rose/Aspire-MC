@@ -70,6 +70,20 @@ public static class MinecraftServerResourceExtensions
         return builder;
     }
 
+    public static IResourceBuilder<MinecraftServerResource> WithWhitelist(this IResourceBuilder<MinecraftServerResource> builder, params string[] players)
+    {
+        builder.WithEnvironment("WHITELIST", string.Join(",", players));
+
+        return builder;
+    }
+
+    public static IResourceBuilder<MinecraftServerResource> WithOps(this IResourceBuilder<MinecraftServerResource> builder, params string[] users)
+    {
+        builder.WithEnvironment("OPS", string.Join(",", users));
+
+        return builder;
+    }
+
     public static IResourceBuilder<MinecraftServerResource> WithCurseforgeModpack(this IResourceBuilder<MinecraftServerResource> builder, string apiKey, string packUrl)
     {
         if (builder.Resource.Modpack is not (null or Modpack.Curseforge))

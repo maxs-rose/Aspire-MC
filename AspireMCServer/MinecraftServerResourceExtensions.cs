@@ -13,7 +13,7 @@ public static class MinecraftServerResourceExtensions
             .WithImageRegistry(MinecraftContainerConfiguration.Registry)
             .WithEndpoint(25565, 25565, name: "http")
             .WithJavaVersion(MinecraftContainerConfiguration.JavaVersion)
-            .WithMcVersion(MinecraftContainerConfiguration.McVersion)
+            .WithMinecraftVersion(MinecraftContainerConfiguration.McVersion)
             .WithDifficulty(MinecraftContainerConfiguration.DefaultDifficulty)
             .WithMotd(MinecraftContainerConfiguration.DefaultMotd);
 
@@ -41,7 +41,7 @@ public static class MinecraftServerResourceExtensions
         return builder;
     }
 
-    public static IResourceBuilder<MinecraftServerResource> WithMcVersion(this IResourceBuilder<MinecraftServerResource> builder, string version)
+    public static IResourceBuilder<MinecraftServerResource> WithMinecraftVersion(this IResourceBuilder<MinecraftServerResource> builder, string version)
     {
         builder.WithEnvironment("VERSION", version);
 

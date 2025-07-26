@@ -50,7 +50,16 @@ public static class MinecraftServerResourceExtensions
 
     public static IResourceBuilder<MinecraftServerResource> WithDifficulty(this IResourceBuilder<MinecraftServerResource> builder, Difficulty difficulty)
     {
-        builder.WithEnvironment("DIFFICULTY", DifficultyName(difficulty));
+        builder.WithEnvironment(
+            "DIFFICULTY",
+            difficulty switch
+            {
+                Difficulty.Peaceful => "peaceful",
+                Difficulty.Easy => "easy",
+                Difficulty.Normal => "normal",
+                Difficulty.Hard => "hard",
+                _ => throw new ArgumentOutOfRangeException(nameof(difficulty), difficulty, null)
+            });
 
         return builder;
     }
@@ -140,17 +149,5 @@ public static class MinecraftServerResourceExtensions
                 });
 
         return builder;
-    }
-
-    private static string DifficultyName(Difficulty difficulty)
-    {
-        return difficulty switch
-        {
-            Difficulty.Peaceful => "peaceful",
-            Difficulty.Easy => "easy",
-            Difficulty.Normal => "normal",
-            Difficulty.Hard => "hard",
-            _ => throw new ArgumentOutOfRangeException(nameof(difficulty), difficulty, null)
-        };
     }
 }

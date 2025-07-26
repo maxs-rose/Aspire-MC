@@ -61,6 +61,87 @@ public static class MinecraftServerResourceExtensions
         return builder;
     }
 
+    public static IResourceBuilder<MinecraftServerResource> WithCurseforgeModpack(this IResourceBuilder<MinecraftServerResource> builder, string apiKey, string packUrl)
+    {
+        if (builder.Resource.Modpack is not (null or Modpack.Curseforge))
+            throw new InvalidOperationException($"The resource already has a modpack set ({builder.Resource.Modpack}.");
+
+        builder.Resource.Modpack = Modpack.Curseforge;
+        builder.WithEnvironment("MODPACK_PLATFORM", "AUTO_CURSEFORGE");
+        builder.WithEnvironment("CF_API_KEY", apiKey);
+        builder.WithEnvironment("CF_PAGE_URL", packUrl);
+
+        return builder;
+    }
+
+    public static IResourceBuilder<MinecraftServerResource> WithFtbModpack(
+        this IResourceBuilder<MinecraftServerResource> builder,
+        string modpackId,
+        string? version = null,
+        bool forceReinstall = false)
+    {
+        if (builder.Resource.Modpack is not (null or Modpack.Ftb))
+            throw new InvalidOperationException($"The resource already has a modpack set ({builder.Resource.Modpack}.");
+
+        builder.Resource.Modpack = Modpack.Ftb;
+        builder.WithEnvironment("MODPACK_PLATFORM", "FTBA");
+        builder.WithEnvironment("FTB_MODPACK_ID", modpackId);
+
+        if (version is not null)
+            builder.WithEnvironment("FTB_MODPACK_VERSION_ID", version);
+
+        if (forceReinstall)
+            builder.WithEnvironment("FTB_FORCE_REINSTALL", "true");
+
+        return builder;
+    }
+
+    public static IResourceBuilder<MinecraftServerResource> WithModrinthModpack(
+        this IResourceBuilder<MinecraftServerResource> builder,
+        string modpack,
+        ModrinthVersionTypes allowedVersionTypes = ModrinthVersionTypes.Release,
+        ModrinthDownladDpendendies downloadDependencies = ModrinthDownladDpendendies.None,
+        ModrinthLoader? loader = null)
+    {
+        if (builder.Resource.Modpack is not (null or Modpack.Modrinth))
+            throw new InvalidOperationException($"The resource already has a modpack set ({builder.Resource.Modpack}.");
+
+        builder.Resource.Modpack = Modpack.Modrinth;
+        builder.WithEnvironment("MODPACK_PLATFORM", "MODRINTH");
+        builder.WithEnvironment("MODRINTH_MODPACK", modpack);
+        builder.WithEnvironment(
+            "MODRINTH_ALLOWED_VERSION_TYPES",
+            allowedVersionTypes switch
+            {
+                ModrinthVersionTypes.Release => "release",
+                ModrinthVersionTypes.Alpha => "alpha",
+                ModrinthVersionTypes.Beta => "beta",
+                _ => throw new ArgumentOutOfRangeException(nameof(allowedVersionTypes), allowedVersionTypes, null)
+            });
+        builder.WithEnvironment(
+            "MODRINTH_DOWNLOAD_DEPENDENCIES",
+            downloadDependencies switch
+            {
+                ModrinthDownladDpendendies.None => "none",
+                ModrinthDownladDpendendies.Required => "required",
+                ModrinthDownladDpendendies.Optional => "optional",
+                _ => throw new ArgumentOutOfRangeException(nameof(downloadDependencies), downloadDependencies, null)
+            });
+
+        if (loader is not null)
+            builder.WithEnvironment(
+                "MODRINTH_LOADER",
+                loader switch
+                {
+                    ModrinthLoader.Forge => "forge",
+                    ModrinthLoader.Fabric => "fabric",
+                    ModrinthLoader.Quilt => "quilt",
+                    _ => throw new ArgumentOutOfRangeException(nameof(loader), loader, null)
+                });
+
+        return builder;
+    }
+
     private static string DifficultyName(Difficulty difficulty)
     {
         return difficulty switch
